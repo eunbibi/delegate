@@ -10,38 +10,44 @@ namespace Exercise02
     {
         //delegate 
         public delegate bool GradePredicate(double grade);
+
         static void Main(string[] args)
         {
-            double[] gradeArray = { 50, 23, 99, 85, 88, 42, 49, 87, 89, 77 };
+            double[] gradeArray = { 50, 23, 32, 85, 88, 42, 49, 87, 89, 77 };
 
-            GradePredicate greaterVal = IsGreater;
-
+            //create local variable
+            GradePredicate greaterVal;
+            
             // create an instance of the NumberPredicate delegate type using an
             // implicit lambda expression
             greaterVal = grade => grade >= 50;
 
-            // call a lambda expression through a variable
-            Console.WriteLine($"Use a lamda-expression variable: {greaterVal(1.3)}");
-
-            // filter the even numbers using a lambda expression
-            double[] overGrade = GradesFilter(gradeArray, greaterVal);
+            //display list
+            GradesFilter(gradeArray, greaterVal);
         }
 
-        //display grades values which are >= 50
-        //should take an array of type doubles and second argument is a variable of
-        //Graderpredicate
-        //no retun type
+        //method that has no retun type
         public static void GradesFilter(double[] grade, GradePredicate gradePredicate)
         {
-            Console.WriteLine("blar blar");
+            // all values of grades
+            Console.WriteLine("All grades that this student have: ");
+            foreach (double num in grade)
+            {
+                Console.Write(num+" ");
+            }
+
+            //filtering
+            Console.WriteLine("\n\nUse a lamda expression to filter [Greater than 50]: ");
+            foreach (double item in grade)
+            {
+                if (gradePredicate(item))
+                {
+                    Console.Write($"{item} ");
+                }
+            }
+
+            Console.WriteLine("\n");
         }
-        /*
-        private static bool IsGreater(double grade)
-        {
-            if (grade >= 50)
-                return true;
-            else
-                return false;
-        }*/
+        
     }
 }
